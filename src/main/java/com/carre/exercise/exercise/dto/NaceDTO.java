@@ -14,7 +14,7 @@ public class NaceDTO
     private String code;
     private String parent;
     private String description;
-    private String inclideOne;
+    private String includeOne;
     private String includeTwo;
     private String rulings;
     private String exclude;

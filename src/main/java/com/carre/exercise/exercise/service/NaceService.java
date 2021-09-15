@@ -29,6 +29,7 @@ public class NaceService
     public void createNace(NaceDTO naceDTO)
     {
         Nace nace = naceMapper.dtoToEntity(naceDTO);
+        nace.setNew(true);
         naceDao.save(nace);
     }
 
