@@ -7,6 +7,7 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 /**
  * @author Daniel Carretero Ferres
@@ -23,12 +24,19 @@ public class Nace implements Persistable<Long>
 
     private int orderLevel;
     private String code;
+    @Size(max = 8000)
     private String parent;
+    @Size(max = 8000)
     private String description;
+    @Size(max = 8000)
     private String includeOne;
+    @Size(max = 8000)
     private String includeTwo;
+    @Size(max = 8000)
     private String rulings;
+    @Size(max = 8000)
     private String exclude;
+    @Size(max = 8000)
     private String referenceIsicV4;
 
     // Persistable

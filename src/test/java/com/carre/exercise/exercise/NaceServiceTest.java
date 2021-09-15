@@ -3,6 +3,7 @@ package com.carre.exercise.exercise;
 import com.carre.exercise.exercise.dao.NaceDao;
 import com.carre.exercise.exercise.dto.NaceDTO;
 import com.carre.exercise.exercise.dto.NaceMapper;
+import com.carre.exercise.exercise.parser.CSVParser;
 import com.carre.exercise.exercise.service.NaceService;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.Operations;
@@ -14,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -27,6 +29,7 @@ public class NaceServiceTest extends AbstractJPATest
 {
     @Autowired private NaceDao naceDao;
     @Autowired private DataSource dataSource;
+    private final CSVParser parser = new CSVParser();
     private final NaceMapper naceMapper = Mappers.getMapper(NaceMapper.class);
     private NaceService naceService;
 
@@ -49,7 +52,7 @@ public class NaceServiceTest extends AbstractJPATest
     @BeforeAll
     public void beforeAll()
     {
-        naceService = new NaceService(naceDao, naceMapper);
+        naceService = new NaceService(naceDao, naceMapper, parser);
     }
 
     @BeforeEach
@@ -164,11 +167,17 @@ public class NaceServiceTest extends AbstractJPATest
             @Test @DisplayName("THEN: return Nace DTO with only one database call")
             public void thenReturnNaceDTOWithOneCall()
             {
-                NaceDTO dbDTO = naceService.getNaceDetails(111L);
+                naceService.getNaceDetails(111L);
 
                 profiler.verify(SqlQueries.atMostOneQuery());
                 dbSetupTracker.skipNextLaunch();
             }
+        }
+
+        @Test
+        public void pim() throws IOException
+        {
+            naceService.createNaceFromCSV();
         }
     }
 
