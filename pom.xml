@@ -63,7 +63,20 @@
 			<version>1.4.2.Final</version>
 		</dependency>
 
-		<!-- Testing _____________________________________________________________________________________ -->
+		<!-- SWAGGER, to automatically generate API documentation _________________________________________-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<!-- TESTING _____________________________________________________________________________________ -->
+			<!-- JUNIT 5 _________________________________________________________________________________ -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -94,12 +107,14 @@
 			<scope>test</scope>
 		</dependency>
 
+			<!-- ASSERTIONS LIBRARY_______________________________________________________________________ -->
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
 			<scope>test</scope>
 		</dependency>
 
+			<!-- BYPASS JPA DB TESTING____________________________________________________________________ -->
 		<dependency>
 			<groupId>com.ninja-squad</groupId>
 			<artifactId>DbSetup</artifactId>
@@ -107,23 +122,12 @@
 			<scope>test</scope>
 		</dependency>
 
+			<!-- QUERY TRACKER____________________________________________________________________________ -->
 		<dependency>
 			<groupId>io.sniffy</groupId>
 			<artifactId>sniffy-web</artifactId>
 			<version>3.1.12</version>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- Swagger, to automatically generate API documentation _________________________________________-->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>3.0.0</version>
 		</dependency>
 
 	</dependencies>

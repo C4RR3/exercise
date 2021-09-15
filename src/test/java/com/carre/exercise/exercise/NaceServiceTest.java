@@ -124,11 +124,6 @@ public class NaceServiceTest extends AbstractJPATest
 
         }
 
-    }
-
-    @Nested @DisplayName("GIVEN: a Nace table")
-    public class whenNaceTable
-    {
         @Nested @DisplayName("WHEN: get details by no existing order")
         public class whenGetDetailsByNoExistingId
         {
@@ -144,7 +139,7 @@ public class NaceServiceTest extends AbstractJPATest
                 {
 
                 }
-
+                dbSetupTracker.skipNextLaunch();
             }
 
         }
@@ -155,12 +150,26 @@ public class NaceServiceTest extends AbstractJPATest
             @Test @DisplayName("THEN: return Nace DTO")
             public void thenReturnNaceDTO()
             {
+                NaceDTO testDTO = NaceDTO.builder()
+                    .orderId(111L).orderLevel(1).code("1").parent("10").description("111")
+                    .includeOne("111").includeTwo("111").rulings("111").exclude("111")
+                    .referenceIsicV4("111").build();
+                NaceDTO dbDTO = naceService.getNaceDetails(111L);
 
+                assertThat(dbDTO).isNotNull();
+                assertThat(dbDTO).usingRecursiveComparison().isEqualTo(testDTO);
+                dbSetupTracker.skipNextLaunch();
             }
 
+            @Test @DisplayName("THEN: return Nace DTO with only one database call")
+            public void thenReturnNaceDTOWithOneCall()
+            {
+                NaceDTO dbDTO = naceService.getNaceDetails(111L);
+
+                profiler.verify(SqlQueries.atMostOneQuery());
+                dbSetupTracker.skipNextLaunch();
+            }
         }
-
     }
-
 
 }

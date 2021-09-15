@@ -19,6 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation= Propagation.NOT_SUPPORTED)
 public abstract class AbstractJPATest
 {
+    // QUERY TRACKER
+    //--------------------------------------------------------------------------------------------------------
     protected final Spy<?> profiler = Sniffy.spy();
+
+    // SKIP DB SETUP LAUNCH
+    //--------------------------------------------------------------------------------------------------------
     protected final DbSetupTracker dbSetupTracker = new DbSetupTracker();
 }
