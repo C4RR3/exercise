@@ -5,22 +5,16 @@ import com.carre.exercise.exercise.dto.NaceDTO;
 import com.carre.exercise.exercise.dto.NaceMapper;
 import com.carre.exercise.exercise.service.NaceService;
 import com.ninja_squad.dbsetup.DbSetup;
-import com.ninja_squad.dbsetup.DbSetupTracker;
 import com.ninja_squad.dbsetup.Operations;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import io.sniffy.Sniffy;
-import io.sniffy.Spy;
 import io.sniffy.sql.SqlQueries;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+
 import javax.sql.DataSource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
@@ -35,7 +29,6 @@ public class NaceServiceTest extends AbstractJPATest
     @Autowired private DataSource dataSource;
     private final NaceMapper naceMapper = Mappers.getMapper(NaceMapper.class);
     private NaceService naceService;
-
 
     // DATABASE INICIALIZATION
     //--------------------------------------------------------------------------------------------------------
