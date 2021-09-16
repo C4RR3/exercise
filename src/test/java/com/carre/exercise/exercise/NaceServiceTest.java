@@ -101,7 +101,38 @@ public class NaceServiceTest extends AbstractJPATest
 
                 profiler.verify(SqlQueries.atMostOneQuery());
             }
+        }
 
+        @Nested @DisplayName("WHEN: create a Naces from CSV")
+        public class whenCreateNaceFromCSV
+        {
+            @Test
+            @DisplayName("THEN: save List of Naces into H2BD")
+            public void thenSaveNaceInDB() throws IOException
+            {
+                NaceDTO naceDTO = NaceDTO.builder()
+                    .orderId(398481L).orderLevel(1).code("A").parent("")
+                    .description("AGRICULTURE, FORESTRY AND FISHING")
+                    .includeOne("This section includes the exploitation of vegetal and animal natural resources, comprising the activities of growing of crops, raising and breeding of animals, harvesting of timber and other plants, animals or animal products from a farm or their natural habitats.")
+                    .includeTwo("").rulings("").exclude("")
+                    .referenceIsicV4("A").build();
+
+                naceService.createNaceFromCSV();
+
+                NaceDTO result = naceService.getNaceDetails(naceDTO.getOrderId());
+
+                assertThat(result).isNotNull();
+                assertThat(result).usingRecursiveComparison().isEqualTo(naceDTO);
+                //assertThat(naceDao.count()).isEqualTo(998L);
+            }
+
+            @Test
+            @DisplayName("THEN: entities saved from csv with only one database call")
+            public void thenSaveWithOneCall() throws IOException
+            {
+                naceService.createNaceFromCSV();
+                profiler.verify(SqlQueries.atMostOneQuery());
+            }
         }
 
         @Nested @DisplayName("WHEN: create a Nace that already exist")
@@ -124,7 +155,6 @@ public class NaceServiceTest extends AbstractJPATest
 
                 }
             }
-
         }
 
         @Nested @DisplayName("WHEN: get details by no existing order")
@@ -144,7 +174,6 @@ public class NaceServiceTest extends AbstractJPATest
                 }
                 dbSetupTracker.skipNextLaunch();
             }
-
         }
 
         @Nested @DisplayName("WHEN: get details by existing order")
