@@ -4,7 +4,9 @@ import com.carre.exercise.exercise.dto.NaceDTO;
 import com.carre.exercise.exercise.service.NaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
+import java.io.IOException;
 
 /**
  * @author Daniel Carretero Ferres
@@ -27,5 +29,12 @@ public class NaceController
     public NaceDTO getNaceDetails(@PathVariable Long id)
     {
         return naceService.getNaceDetails(id);
+    }
+
+    @GetMapping("/nace/csv")
+    public void putNaceDetailsFromCSV() throws IOException
+    {
+        naceService.createNaceFromCSV();
+        //chant parameter to accept uri with file path
     }
 }
